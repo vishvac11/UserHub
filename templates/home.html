@@ -1,61 +1,83 @@
-{% extends "base.html" %}
+{% extends "base.html" %} {% block title %}Home · UserHub{% endblock %} {% block
+content %}
+<div class="p-4 p-md-5 mb-4 hero rounded-4 shadow-sm overflow-hidden">
+  <div class="row align-items-center g-4">
+    <div class="col-lg-7">
+      <h1 class="display-6 fw-bold mb-2">User Management System</h1>
+      <p class="lead text-secondary mb-0">
+        Add users, keep details updated, and manage your list with full CRUD in
+        a clean UI.
+      </p>
+    </div>
+    <div class="col-lg-5">
+      <div class="d-flex flex-column gap-2">
+        <a class="btn btn-primary btn-lg" href="{{ url_for('user_create') }}"
+          >Add a new user</a
+        >
+        <a
+          class="btn btn-outline-light btn-lg"
+          href="{{ url_for('users_list') }}"
+          >View all users</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
 
-{% block title %}Home · User Management{% endblock %}
-
-{% block content %}
-  <div class="p-4 p-md-5 mb-4 hero rounded-4 shadow-sm overflow-hidden">
-    <div class="row align-items-center g-4">
-      <div class="col-lg-7">
-        <h1 class="display-6 fw-bold mb-2">User Management System</h1>
-        <p class="lead text-secondary mb-0">
-          Add users, keep details updated, and manage your list with full CRUD in a clean UI.
+<div class="row g-3">
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h5 class="card-title mb-0">Create</h5>
+          <span class="badge text-bg-primary">C</span>
+        </div>
+        <p class="card-text mt-2 text-secondary">
+          Add users with a better form and validation.
         </p>
-      </div>
-      <div class="col-lg-5">
-        <div class="d-flex flex-column gap-2">
-          <a class="btn btn-primary btn-lg" href="{{ url_for('user_create') }}">Add a new user</a>
-          <a class="btn btn-outline-light btn-lg" href="{{ url_for('users_list') }}">View all users</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row g-3">
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">Create</h5>
-            <span class="badge text-bg-primary">C</span>
-          </div>
-          <p class="card-text mt-2 text-secondary">Add users with a better form and validation.</p>
-          <a href="{{ url_for('user_create') }}" class="stretched-link" aria-label="Create user"></a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">Read</h5>
-            <span class="badge text-bg-success">R</span>
-          </div>
-          <p class="card-text mt-2 text-secondary">View all users in a searchable, readable table.</p>
-          <a href="{{ url_for('users_list') }}" class="stretched-link" aria-label="View users"></a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <div class="d-flex align-items-center justify-content-between">
-            <h5 class="card-title mb-0">Update & Delete</h5>
-            <span class="badge text-bg-danger">UD</span>
-          </div>
-          <p class="card-text mt-2 text-secondary">Edit details or delete users with confirmation.</p>
-          <a href="{{ url_for('users_list') }}" class="stretched-link" aria-label="Manage users"></a>
-        </div>
+        <a
+          href="{{ url_for('user_create') }}"
+          class="stretched-link"
+          aria-label="Create user"
+        ></a>
       </div>
     </div>
   </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h5 class="card-title mb-0">Read</h5>
+          <span class="badge text-bg-success">R</span>
+        </div>
+        <p class="card-text mt-2 text-secondary">
+          View all users in a searchable, readable table.
+        </p>
+        <a
+          href="{{ url_for('users_list') }}"
+          class="stretched-link"
+          aria-label="View users"
+        ></a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <div class="d-flex align-items-center justify-content-between">
+          <h5 class="card-title mb-0">Update & Delete</h5>
+          <span class="badge text-bg-danger">UD</span>
+        </div>
+        <p class="card-text mt-2 text-secondary">
+          Edit details or delete users with confirmation.
+        </p>
+        <a
+          href="{{ url_for('users_list') }}"
+          class="stretched-link"
+          aria-label="Manage users"
+        ></a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
