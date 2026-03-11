@@ -106,4 +106,4 @@ CREATE TABLE IF NOT EXISTS users (
 );
 ```
 
-## Built with passion ❤️ by Vishva Chauhan
+#### Built with passion ❤️ by Vishva Chauhan
