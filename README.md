@@ -65,7 +65,7 @@ Editing and deleting are available from the **View Users** page.
 # Project Structure
 
 ```
-user_management_app/
+UserHub/
   app.py
   database.db              # created automatically after first run
   requirements.txt
