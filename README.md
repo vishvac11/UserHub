@@ -1,4 +1,4 @@
-# User Management App
+# UserHub
 
 A small **User Management System** built with **Flask** and **SQLite** that supports full **CRUD**:
 create users, view users, edit users, and delete users — with a clean Vanilla CSS and Bootstrap UI.
