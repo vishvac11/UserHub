@@ -1,104 +1,116 @@
-{% extends "base.html" %}
-
-{% block title %}Users · User Management{% endblock %}
-
-{% block content %}
-  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
-    <div>
-      <h2 class="h3 mb-1">All users</h2>
-      <div class="text-secondary">View, edit, or delete users.</div>
-    </div>
-    <div class="d-flex gap-2">
-      <a class="btn btn-primary" href="{{ url_for('user_create') }}">Add user</a>
-      <a class="btn btn-outline-secondary" href="{{ url_for('home') }}">Home</a>
-    </div>
+{% extends "base.html" %} {% block title %}Users · UserHub{% endblock %} {%
+block content %}
+<div
+  class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3"
+>
+  <div>
+    <h2 class="h3 mb-1">All users</h2>
+    <div class="text-secondary">View, edit, or delete users.</div>
   </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-primary" href="{{ url_for('user_create') }}">Add user</a>
+    <a class="btn btn-outline-secondary" href="{{ url_for('home') }}">Home</a>
+  </div>
+</div>
 
-  <div class="card shadow-sm">
-    <div class="card-body">
-      <div class="row g-2 align-items-center mb-3">
-        <div class="col-md-6">
-          <div class="input-group">
-            <span class="input-group-text">Search</span>
-            <input id="search" type="search" class="form-control" placeholder="name, email, age…" />
-          </div>
-        </div>
-        <div class="col-md-6 text-md-end small text-secondary">
-          Total: <span id="count">{{ users|length }}</span>
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="row g-2 align-items-center mb-3">
+      <div class="col-md-6">
+        <div class="input-group">
+          <span class="input-group-text">Search</span>
+          <input
+            id="search"
+            type="search"
+            class="form-control"
+            placeholder="name, email, age…"
+          />
         </div>
       </div>
-
-      <div class="table-responsive">
-        <table class="table table-hover align-middle mb-0" id="usersTable">
-          <thead class="table-light">
-            <tr>
-              <th style="width: 80px;">ID</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th style="width: 90px;">Age</th>
-              <th class="text-end" style="width: 170px;">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% if users|length == 0 %}
-              <tr>
-                <td colspan="5" class="text-center text-secondary py-5">
-                  No users yet. <a href="{{ url_for('user_create') }}">Create the first user</a>.
-                </td>
-              </tr>
-            {% endif %}
-
-            {% for user in users %}
-              <tr>
-                <td class="text-secondary">#{{ user["id"] }}</td>
-                <td class="fw-semibold">{{ user["name"] }}</td>
-                <td><a href="mailto:{{ user['email'] }}">{{ user["email"] }}</a></td>
-                <td>{{ user["age"] }}</td>
-                <td class="text-end">
-                  <div class="btn-group btn-group-sm" role="group" aria-label="Actions">
-                    <a class="btn btn-outline-primary" href="{{ url_for('user_edit', user_id=user['id']) }}">Edit</a>
-                    <form
-                      method="post"
-                      action="{{ url_for('user_delete', user_id=user['id']) }}"
-                      onsubmit="return confirm('Delete {{ user['name'] }}? This cannot be undone.');"
-                    >
-                      <button class="btn btn-outline-danger" type="submit">Delete</button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <div class="col-md-6 text-md-end small text-secondary">
+        Total: <span id="count">{{ users|length }}</span>
       </div>
     </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0" id="usersTable">
+        <thead class="table-light">
+          <tr>
+            <th style="width: 80px">ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th style="width: 90px">Age</th>
+            <th class="text-end" style="width: 170px">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if users|length == 0 %}
+          <tr>
+            <td colspan="5" class="text-center text-secondary py-5">
+              No users yet.
+              <a href="{{ url_for('user_create') }}">Create the first user</a>.
+            </td>
+          </tr>
+          {% endif %} {% for user in users %}
+          <tr>
+            <td class="text-secondary">#{{ user["id"] }}</td>
+            <td class="fw-semibold">{{ user["name"] }}</td>
+            <td>
+              <a href="mailto:{{ user['email'] }}">{{ user["email"] }}</a>
+            </td>
+            <td>{{ user["age"] }}</td>
+            <td class="text-end">
+              <div
+                class="btn-group btn-group-sm"
+                role="group"
+                aria-label="Actions"
+              >
+                <a
+                  class="btn btn-outline-primary"
+                  href="{{ url_for('user_edit', user_id=user['id']) }}"
+                  >Edit</a
+                >
+                <form
+                  method="post"
+                  action="{{ url_for('user_delete', user_id=user['id']) }}"
+                  onsubmit="return confirm('Delete {{ user['name'] }}? This cannot be undone.');"
+                >
+                  <button class="btn btn-outline-danger" type="submit">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
+</div>
+{% endblock %} {% block scripts %}
+<script>
+  (() => {
+    const input = document.getElementById("search");
+    const table = document.getElementById("usersTable");
+    const count = document.getElementById("count");
+    if (!input || !table || !count) return;
+
+    const rows = Array.from(table.querySelectorAll("tbody tr"));
+    const filterRows = () => {
+      const q = (input.value || "").trim().toLowerCase();
+      let visible = 0;
+      rows.forEach((row) => {
+        const text = row.innerText.toLowerCase();
+        const show = !q || text.includes(q);
+        row.style.display = show ? "" : "none";
+        if (show) visible += 1;
+      });
+      count.textContent = String(visible);
+    };
+
+    input.addEventListener("input", filterRows);
+    filterRows();
+  })();
+</script>
 {% endblock %}
-
-{% block scripts %}
-  <script>
-    (() => {
-      const input = document.getElementById("search");
-      const table = document.getElementById("usersTable");
-      const count = document.getElementById("count");
-      if (!input || !table || !count) return;
-
-      const rows = Array.from(table.querySelectorAll("tbody tr"));
-      const filterRows = () => {
-        const q = (input.value || "").trim().toLowerCase();
-        let visible = 0;
-        rows.forEach((row) => {
-          const text = row.innerText.toLowerCase();
-          const show = !q || text.includes(q);
-          row.style.display = show ? "" : "none";
-          if (show) visible += 1;
-        });
-        count.textContent = String(visible);
-      };
-
-      input.addEventListener("input", filterRows);
-      filterRows();
-    })();
-  </script>
-{% endblock %}
-
