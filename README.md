@@ -21,7 +21,7 @@ create users, view users, edit users, and delete users — with a clean Vanilla 
   - Email must look valid
   - Age must be a number between 0 and 150
 
-## Pages (What you asked for)
+## Pages
 
 - **Home page**: `/`
 - **Form input page** (create): `/users/new`
@@ -106,4 +106,4 @@ CREATE TABLE IF NOT EXISTS users (
 );
 ```
 
-#### Built with passion ❤️ by Vishva Chauhan
+### Built with passion 👍 by Vishva Chauhan
