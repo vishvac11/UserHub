@@ -12,7 +12,7 @@ The application is deployed on **Render** and can be accessed online.
 Live URL:
 
 ```
-https://your-render-url.onrender.com
+https://userhub-5dt0.onrender.com/
 ```
 
 ---
@@ -88,7 +88,7 @@ user_management_app/
 ## 1) Clone the Repository
 
 ```
-git clone https://github.com/thanos14million605/userhub.git
+git clone https://github.com/vishvac11/UserHub
 cd userhub
 ```
 
