@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% if mode == "edit" %}
+  {% set page_title = "Edit user" %}
+  {% set submit_label = "Save changes" %}
+{% else %}
+  {% set page_title = "Add user" %}
+  {% set submit_label = "Create user" %}
+{% endif %}
+
+{% block title %}{{ page_title }} · User Management{% endblock %}
+
+{% block content %}
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
+    <div>
+      <h2 class="h3 mb-1">{{ page_title }}</h2>
+      <div class="text-secondary">Fill in the details below.</div>
+    </div>
+    <div class="d-flex gap-2">
+      <a class="btn btn-outline-secondary" href="{{ url_for('users_list') }}">Back to users</a>
+      <a class="btn btn-outline-primary" href="{{ url_for('home') }}">Home</a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body p-4">
+      <form method="post" novalidate class="needs-validation">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="name" class="form-label">Full name</label>
+            <input
+              id="name"
+              class="form-control"
+              type="text"
+              name="name"
+              value="{{ user['name'] }}"
+              placeholder="e.g. Jane Doe"
+              required
+              autofocus
+            />
+            <div class="invalid-feedback">Please enter a name.</div>
+          </div>
+
+          <div class="col-md-6">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              id="email"
+              class="form-control"
+              type="email"
+              name="email"
+              value="{{ user['email'] }}"
+              placeholder="e.g. jane@example.com"
+              required
+            />
+            <div class="invalid-feedback">Please enter a valid email.</div>
+          </div>
+
+          <div class="col-md-4">
+            <label for="age" class="form-label">Age</label>
+            <input
+              id="age"
+              class="form-control"
+              type="number"
+              name="age"
+              value="{{ user['age'] }}"
+              placeholder="e.g. 24"
+              min="0"
+              max="150"
+              required
+            />
+            <div class="invalid-feedback">Please enter a valid age.</div>
+          </div>
+
+          <div class="col-12 d-flex justify-content-end gap-2 pt-2">
+            {% if mode == "edit" %}
+              <a class="btn btn-light" href="{{ url_for('users_list') }}">Cancel</a>
+            {% else %}
+              <a class="btn btn-light" href="{{ url_for('home') }}">Cancel</a>
+            {% endif %}
+            <button class="btn btn-primary" type="submit">{{ submit_label }}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    (() => {
+      "use strict";
+      const forms = document.querySelectorAll(".needs-validation");
+      Array.from(forms).forEach((form) => {
+        form.addEventListener(
+          "submit",
+          (event) => {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add("was-validated");
+          },
+          false
+        );
+      });
+    })();
+  </script>
+{% endblock %}
+
